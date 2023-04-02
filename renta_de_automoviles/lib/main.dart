@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xFF811B83),
           accentColor: Color(0xFFFA5019),
           textTheme: TextTheme(
-              headline1: TextStyle(color: Color(0xFF100E34)),
+              headline1: TextStyle(
+                color: Color(0xFF100E34),
+              ),
               bodyText1: TextStyle(color: Color(0xFF100E34).withOpacity(0.5)))),
       home: Inicio(),
     );
