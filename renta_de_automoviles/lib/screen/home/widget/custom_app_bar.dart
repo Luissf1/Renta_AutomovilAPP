@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -11,7 +12,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
                 onPressed: () {},
-                icon: Image(image: AssetImage('assets/icons/filter.png'))),
+                icon: SvgPicture.asset('assets/icons/menu.svg')),
+            IconButton(
+                onPressed: () {}, icon: Image.asset('assets/icons/user.png'))
           ],
         ),
       ),

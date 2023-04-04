@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/screen/home/widget/custom_app_bar.dart';
 import 'package:renta_de_automoviles/screen/home/widget/search_input.dart';
 import 'package:renta_de_automoviles/screen/home/widget/welcome_text.dart';
+import 'package:renta_de_automoviles/screen/home/widget/recomendados.dart';
 
 class Inicio extends StatelessWidget {
   @override
@@ -15,6 +16,7 @@ class Inicio extends StatelessWidget {
           children: [
             WelcomeText(),
             SearchInput(),
+            Recomendados(),
           ],
         ),
       ),
