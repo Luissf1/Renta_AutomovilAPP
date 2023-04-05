@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "755851814193",
+    "project_id": "proyectoresidencia2023",
+    "storage_bucket": "proyectoresidencia2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755851814193:android:2f008e04937a8024c9fc10",
+        "android_client_info": {
+          "package_name": "com.example.renta_de_automoviles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755851814193-010bqldl0ofm0hi6j96phj4dijac1gkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEYSfzVtz6R8EbMkJC0v-P4sZqWa44UtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755851814193-010bqldl0ofm0hi6j96phj4dijac1gkd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

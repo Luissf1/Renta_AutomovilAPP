@@ -10,8 +10,8 @@ class BotonGuardar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 20,
-      height: 20,
+      width: 25,
+      height: 25,
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       child: SvgPicture.asset(iconUrl),
