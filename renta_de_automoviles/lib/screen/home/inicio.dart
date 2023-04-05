@@ -3,6 +3,7 @@ import 'package:renta_de_automoviles/screen/home/widget/custom_app_bar.dart';
 import 'package:renta_de_automoviles/screen/home/widget/search_input.dart';
 import 'package:renta_de_automoviles/screen/home/widget/welcome_text.dart';
 import 'package:renta_de_automoviles/screen/home/widget/recomendados.dart';
+import 'package:renta_de_automoviles/screen/home/widget/barra_menu.dart';
 
 class Inicio extends StatelessWidget {
   @override
@@ -20,6 +21,7 @@ class Inicio extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BarraMenu(),
     );
   }
 }
