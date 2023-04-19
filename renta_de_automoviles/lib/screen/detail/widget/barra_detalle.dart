@@ -270,24 +270,7 @@ class BarraDetalle extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DateRanges(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  'Abril 2-10',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline),
-                                ),
-                              ),
+                              Calendario(),
                             ],
                           ),
                           Text(

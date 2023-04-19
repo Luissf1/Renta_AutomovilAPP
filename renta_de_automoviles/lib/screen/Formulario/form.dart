@@ -80,12 +80,17 @@ class PaginaForm extends StatelessWidget {
                             .headlineLarge!
                             .copyWith(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                    Text(
-                      'Editar',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Editar',
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline),
+                      ),
                     ),
                   ],
                 )
@@ -155,32 +160,9 @@ class PaginaForm extends StatelessWidget {
                   height: 18,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      'Abril 2-10',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DateRanges(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Editar',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline),
-                      ),
-                    ),
+                    Calendario(),
                   ],
                 )
               ],
