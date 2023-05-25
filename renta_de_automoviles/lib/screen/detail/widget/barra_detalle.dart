@@ -53,7 +53,7 @@ class BarraDetalle extends StatelessWidget {
               ),
               Container(
                 child: Column(children: [
-                  Image.asset(
+                  Image.network(
                     auto.urlimagen,
                     fit: BoxFit.cover,
                     width: double.infinity,

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 
 class Auto {
-  final String id;
+  String id;
   final String Estado;
   final String modelo;
   final String categoria;
