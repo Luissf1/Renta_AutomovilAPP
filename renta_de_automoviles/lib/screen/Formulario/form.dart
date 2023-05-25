@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
-import 'package:renta_de_automoviles/screen/Formulario/widget/BotonResevar.dart';
 import 'package:renta_de_automoviles/screen/Formulario/widget/formulario.dart';
-import 'package:renta_de_automoviles/widget/calendario.dart';
 
 class PaginaForm extends StatelessWidget {
   final Auto auto;
@@ -115,65 +113,6 @@ class PaginaForm extends StatelessWidget {
               height: 18,
             ),
             MyCustomForm(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Detalles de total',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      '\$348 mxn x 8 dias',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text('\$2,784.00',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(
-                                fontSize: 16, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Text(
-                  'Fecha',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Calendario(),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: 18,
-            ),
-            Reservar(auto: auto),
-            SizedBox(
-              height: 10,
-            ),
           ],
         ),
       ),

@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 import 'package:renta_de_automoviles/widget/boton_guardado.dart';
 import 'package:renta_de_automoviles/widget/caracteristicas.dart';
 
+/*
 class Recomendados extends StatelessWidget {
   final listarecomendada = Auto.Recomendados();
   @override
@@ -169,4 +171,48 @@ class Recomendados extends StatelessWidget {
           itemCount: listarecomendada.length),
     );
   }
+}*/
+
+class Recomendados extends StatelessWidget {
+  final controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<Auto>>(
+      stream: readUsers(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final autos = snapshot.data!;
+          return ListView(
+            children: autos.map(buildUser).toList(),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Algo salio mal! ${snapshot.error}');
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
 }
+
+Widget buildUser(Auto auto) => ListTile(
+      title: Text(auto.modelo),
+      subtitle: Text(auto.Estado),
+      /*subtitle: Text(auto.modelo),
+      subtitle: Text(auto.categoria),
+      subtitle: Text(auto.ubicacion),
+      subtitle: Text(auto.asientos),
+      subtitle: Text(auto.maletas),
+      subtitle: Text(auto.puertas),
+      subtitle: Text(auto.precio),
+      subtitle: Text(auto.urlimagen),
+      subtitle: Text(auto.transmision),
+      subtitle: Text(auto.estereo),
+      subtitle: Text(auto.frenos),*/
+    );
+Stream<List<Auto>> readUsers() =>
+    FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
