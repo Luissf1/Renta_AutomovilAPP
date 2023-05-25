@@ -60,7 +60,7 @@ class PaginaForm extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Image.asset(auto.urlimagen),
+                  child: Image.network(auto.urlimagen),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
