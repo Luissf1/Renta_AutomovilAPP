@@ -223,14 +223,30 @@ class BarraDetalle extends StatelessWidget {
               MyStatefulWidget(),
               Container(
                 child: Row(children: [
-                  Text(
-                    'Terminos y condiciones',
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                    textAlign: TextAlign.left,
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('Terminos y condiciones'),
+                                content: Text(
+                                    'La renta de automóviles está sujeta a disponibilidad y se recomienda hacer una reservación con anticipación para garantizar la disponibilidad del vehículo deseado.'),
+                                actions: [
+                                  TextButton(
+                                      child: Text('OK'),
+                                      onPressed: () => Navigator.pop(context))
+                                ],
+                              ));
+                    },
+                    child: Text(
+                      'Terminos y condiciones',
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          ),
+                      textAlign: TextAlign.left,
+                    ),
                   )
                 ]),
               ),

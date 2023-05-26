@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/screen/home/widget/barra_menu.dart';
+import 'package:renta_de_automoviles/screen/Reservaciones/widget/Reservados.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Reservacion extends StatelessWidget {
@@ -45,7 +46,7 @@ class Reservacion extends StatelessWidget {
             SizedBox(
               height: 18,
             ),
-            //Reservados(),
+            Reservados(),
           ],
         ),
       ),

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Auto {
   String id;
-  final String Estado;
+  late final String Estado;
   final String modelo;
   final String categoria;
   final String ubicacion;
