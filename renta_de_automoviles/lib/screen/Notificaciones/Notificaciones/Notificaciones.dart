@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
-import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 
 import '../../home/inicio.dart';
 //import 'package:renta_de_automoviles/widget/boton_guardado.dart';
@@ -11,7 +10,7 @@ Stream<List<Auto>> readUsers() =>
     FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
-class Reservados extends StatelessWidget {
+class Notificaciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Auto>>(
@@ -85,9 +84,19 @@ class Reservados extends StatelessWidget {
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
                                 SizedBox(
-                                  height: 10,
+                                  height: 40,
                                 ),
-                                ElevatedButton(
+                                Text(
+                                  'Reservado',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                /*ElevatedButton(
                                   onPressed: () {
                                     showDialog(
                                         context: context,
@@ -121,7 +130,7 @@ class Reservados extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ],

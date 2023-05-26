@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 
+import '../../detail/detalles.dart';
 import '../../home/inicio.dart';
 //import 'package:renta_de_automoviles/widget/boton_guardado.dart';
 //import 'package:renta_de_automoviles/widget/caracteristicas.dart';
@@ -11,7 +12,7 @@ Stream<List<Auto>> readUsers() =>
     FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
-class Reservados extends StatelessWidget {
+class Guardados extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Auto>>(
@@ -89,30 +90,14 @@ class Reservados extends StatelessWidget {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              title:
-                                                  Text('Reservacion Cancelada'),
-                                              content: Text(
-                                                  'Su reservacion a sido cancelada'),
-                                              actions: [
-                                                TextButton(
-                                                  child: Text('OK'),
-                                                  onPressed: () =>
-                                                      Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Inicio(),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => (Inicio())),
+                                    );
                                   },
                                   child: Text(
-                                    'Cancelar',
+                                    'Reservar',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!

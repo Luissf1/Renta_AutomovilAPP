@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/Formulario/widget/formulario.dart';
 
+import '../home/inicio.dart';
+
 class PaginaForm extends StatelessWidget {
   final Auto auto;
   const PaginaForm({Key? key, required this.auto}) : super(key: key);
@@ -24,7 +26,12 @@ class PaginaForm extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Inicio(),
+                          ),
+                        );
                       },
                       child: Container(
                         height: 28,

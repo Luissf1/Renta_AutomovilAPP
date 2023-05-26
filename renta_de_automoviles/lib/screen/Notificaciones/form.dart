@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/screen/home/widget/barra_menu.dart';
-import 'package:renta_de_automoviles/screen/Reservaciones/widget/Reservados.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../home/inicio.dart';
+import 'Notificaciones/Notificaciones.dart';
 
-class Reservacion extends StatelessWidget {
+class Notificacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,7 @@ class Reservacion extends StatelessWidget {
               ),
             ),
             Text(
-              'Reservaciones',
+              'Notificaciones',
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class Reservacion extends StatelessWidget {
             SizedBox(
               height: 18,
             ),
-            Reservados(),
+            Notificaciones(),
           ],
         ),
       ),

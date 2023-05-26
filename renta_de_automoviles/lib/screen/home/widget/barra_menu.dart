@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:renta_de_automoviles/screen/Notificaciones/Notificaciones/Notificaciones.dart';
 import 'package:renta_de_automoviles/screen/Reservaciones/form.dart';
 import 'package:renta_de_automoviles/screen/home/inicio.dart';
+
+import '../../Guardado/form.dart';
+import '../../Notificaciones/form.dart';
 
 /*
 class BarraMenu extends StatelessWidget {
@@ -85,7 +89,10 @@ class BarraMenu extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Notificacion()),
+              );
             },
             child: Container(
               height: 28,
@@ -95,7 +102,10 @@ class BarraMenu extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Guardado()),
+              );
             },
             child: Container(
               margin: EdgeInsets.only(right: 35),
