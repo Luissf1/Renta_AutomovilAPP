@@ -5,10 +5,15 @@ import 'package:renta_de_automoviles/screen/Formulario/form.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/Botones.dart';
 import 'package:renta_de_automoviles/widget/calendario.dart';
 
-class BarraDetalle extends StatelessWidget {
+class BarraDetalle extends StatefulWidget {
   final Auto auto;
   const BarraDetalle({Key? key, required this.auto}) : super(key: key);
 
+  @override
+  State<BarraDetalle> createState() => _BarraDetalleState();
+}
+
+class _BarraDetalleState extends State<BarraDetalle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +59,7 @@ class BarraDetalle extends StatelessWidget {
               Container(
                 child: Column(children: [
                   Image.network(
-                    auto.urlimagen,
+                    widget.auto.urlimagen,
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
@@ -65,10 +70,10 @@ class BarraDetalle extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(auto.modelo,
+                    Text(widget.auto.modelo,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 30, fontWeight: FontWeight.bold)),
-                    Text(auto.ubicacion,
+                    Text(widget.auto.ubicacion,
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
@@ -126,19 +131,19 @@ class BarraDetalle extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(auto.transmision,
+                      Text(widget.auto.transmision,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(auto.asientos,
+                      Text(widget.auto.asientos,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(auto.estereo,
+                      Text(widget.auto.estereo,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
@@ -178,19 +183,19 @@ class BarraDetalle extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(auto.maletas,
+                      Text(widget.auto.maletas,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(auto.puertas,
+                      Text(widget.auto.puertas,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(auto.frenos,
+                      Text(widget.auto.frenos,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
@@ -261,7 +266,7 @@ class BarraDetalle extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PaginaForm(auto: auto),
+                        builder: (context) => PaginaForm(auto: widget.auto),
                       ),
                     );
                   },
@@ -279,7 +284,7 @@ class BarraDetalle extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                auto.precio,
+                                ('${widget.auto.precio} Mxn/dia'),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

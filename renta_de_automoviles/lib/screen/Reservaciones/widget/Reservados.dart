@@ -11,14 +11,33 @@ Stream<List<Auto>> readUsers() =>
     FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
-class Reservados extends StatelessWidget {
+class Reservados extends StatefulWidget {
+  @override
+  State<Reservados> createState() => _ReservadosState();
+}
+
+class _ReservadosState extends State<Reservados> {
+  List busquedaReservados = [];
+
+  void BusquedaDeFireBase() async {
+    final resultado = await FirebaseFirestore.instance
+        .collection('Auto')
+        .where('Estado', isEqualTo: 'Disponible')
+        .get();
+
+    setState(() {
+      busquedaReservados = resultado.docs.map((e) => e.data()).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Auto>>(
       stream: readUsers(),
       builder: (context, snapshot) {
-        if (snapshot.hasData /*&& auto.Estado.startsWith('Disponible')*/) {
-          final autos = snapshot.data!;
+        BusquedaDeFireBase();
+        if (snapshot.hasData && busquedaReservados.isNotEmpty) {
+          //final autos = snapshot.data!;
           return Container(
             height: 500,
             child: ListView.separated(
@@ -54,14 +73,17 @@ class Reservados extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Image.network(autos[index].urlimagen),
+                              child: Image.network(
+                                  busquedaReservados[index]['urlimagen']),
+                              //autos[index].urlimagen
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  autos[index].modelo,
+                                  //autos[index].modelo,
+                                  busquedaReservados[index]['modelo'],
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline1!
@@ -70,14 +92,18 @@ class Reservados extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
-                                Text(autos[index].ubicacion,
+                                Text(
+                                    //autos[index].ubicacion,
+                                    busquedaReservados[index]['ubicacion'],
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                Text('${autos[index].precio} MXN',
+                                Text(
+                                    //'${autos[index].precio} MXN',
+                                    '${busquedaReservados[index]['precio']} MXN',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -89,6 +115,20 @@ class Reservados extends StatelessWidget {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
+                                    final docCancelado = FirebaseFirestore
+                                        .instance
+                                        .collection('Auto')
+                                        .doc(
+                                            '${busquedaReservados[index]['Estado']}');
+
+                                    //.doc('uOVly9GlF2JJMNrxAvd6');
+
+                                    docCancelado.update({
+                                      'Estado': 'Cancelado',
+                                    });
+
+                                    // busquedaReservados[index]['Estado'] =
+                                    //   'Cancelado';
                                     showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
@@ -130,7 +170,7 @@ class Reservados extends StatelessWidget {
                       //Fin
                     ),
                 separatorBuilder: (_, index) => SizedBox(height: 30),
-                itemCount: autos.length),
+                itemCount: busquedaReservados.length),
             //children: autos.map(buildUser).toList(),
           );
           //  );

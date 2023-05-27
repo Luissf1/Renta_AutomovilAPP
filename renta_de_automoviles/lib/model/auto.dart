@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Auto {
   String id;
-  late final String Estado;
+  final String Estado;
+  final String Favorito;
   final String modelo;
   final String categoria;
   final String ubicacion;
@@ -19,6 +20,7 @@ class Auto {
   Auto({
     this.id = '',
     required this.Estado,
+    required this.Favorito,
     required this.modelo,
     required this.categoria,
     required this.ubicacion,
@@ -34,6 +36,7 @@ class Auto {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'Favorito': Favorito,
         'Estado': Estado,
         'modelo': modelo,
         'categoria': categoria,
@@ -50,6 +53,7 @@ class Auto {
 
   static Auto fromJson(Map<String, dynamic> json) => Auto(
       id: json['id'],
+      Favorito: json['Favorito'],
       Estado: json['Estado'],
       modelo: json['modelo'],
       categoria: json['categoria'],

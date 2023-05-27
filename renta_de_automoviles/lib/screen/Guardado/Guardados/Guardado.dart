@@ -12,13 +12,32 @@ Stream<List<Auto>> readUsers() =>
     FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
-class Guardados extends StatelessWidget {
+class Guardados extends StatefulWidget {
+  @override
+  State<Guardados> createState() => _GuardadosState();
+}
+
+class _GuardadosState extends State<Guardados> {
+  List busquedaGuardados = [];
+
+  void BusquedaDeFireBase() async {
+    final resultado = await FirebaseFirestore.instance
+        .collection('Auto')
+        .where('Favorito', isEqualTo: 'Si')
+        .get();
+
+    setState(() {
+      busquedaGuardados = resultado.docs.map((e) => e.data()).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Auto>>(
       stream: readUsers(),
       builder: (context, snapshot) {
-        if (snapshot.hasData /*&& auto.Estado.startsWith('Disponible')*/) {
+        BusquedaDeFireBase();
+        if (snapshot.hasData && busquedaGuardados.isNotEmpty) {
           final autos = snapshot.data!;
           return Container(
             height: 500,
@@ -55,14 +74,15 @@ class Guardados extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Image.network(autos[index].urlimagen),
+                              child: Image.network(
+                                  '${busquedaGuardados[index]['urlimagen']}'),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  autos[index].modelo,
+                                  '${busquedaGuardados[index]['modelo']} ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline1!
@@ -71,14 +91,15 @@ class Guardados extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
-                                Text(autos[index].ubicacion,
+                                Text('${busquedaGuardados[index]['ubicacion']}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                Text('${autos[index].precio} MXN',
+                                Text(
+                                    '${busquedaGuardados[index]['precio']} MXN',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -90,10 +111,14 @@ class Guardados extends StatelessWidget {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
+                                    Navigator.of(context).push(
                                       MaterialPageRoute(
-                                          builder: (context) => (Inicio())),
+                                        builder: (context) {
+                                          return BarraDetalle(
+                                            auto: autos[index],
+                                          );
+                                        },
+                                      ),
                                     );
                                   },
                                   child: Text(
@@ -115,7 +140,7 @@ class Guardados extends StatelessWidget {
                       //Fin
                     ),
                 separatorBuilder: (_, index) => SizedBox(height: 30),
-                itemCount: autos.length),
+                itemCount: busquedaGuardados.length),
             //children: autos.map(buildUser).toList(),
           );
           //  );

@@ -237,7 +237,12 @@ Widget buildUser(Auto auto) => ListTile(
       subtitle: Text(auto.frenos),*/
     );
 
-class Recomendados extends StatelessWidget {
+class Recomendados extends StatefulWidget {
+  @override
+  State<Recomendados> createState() => _RecomendadosState();
+}
+
+class _RecomendadosState extends State<Recomendados> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Auto>>(

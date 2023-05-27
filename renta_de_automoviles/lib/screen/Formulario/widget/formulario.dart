@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:renta_de_automoviles/model/auto.dart';
+
+import '../../../widget/calendario.dart';
 
 // Crea un Widget Form
 class MyCustomForm extends StatefulWidget {
@@ -140,7 +143,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 height: 18,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '\$348 mxn x 8 dias',
@@ -150,6 +153,26 @@ class MyCustomFormState extends State<MyCustomForm> {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text('\$2,784.00',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Seguro',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text('\$200.00',
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge!
@@ -172,11 +195,12 @@ class MyCustomFormState extends State<MyCustomForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('\$2,784.00',
+                  /*Text('\$2,784.00',
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),*/
+                  Calendario(),
                 ],
               )
             ],
@@ -203,26 +227,24 @@ class MyCustomFormState extends State<MyCustomForm> {
                     correo: Controllercorreo.text,
                     telefono: Controllertelefono.text);
 
-                createUser(user);
-
                 if (_formKey.currentState!.validate()) {
                   // Si el formulario es válido, queremos mostrar un Snackbar
                   //ScaffoldMessenger.of(context).showSnackBar;
+                  createUser(user);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Reservado'),
+                      content: Text('Se ha reservado de forma exitosa'),
+                      actions: [
+                        TextButton(
+                          child: Text('OK'),
+                          onPressed: () => Navigator.pop(context),
+                        )
+                      ],
+                    ),
+                  );
                 }
-
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text('Reservado'),
-                    content: Text('Se ha reservado de forma exitosa'),
-                    actions: [
-                      TextButton(
-                        child: Text('OK'),
-                        onPressed: () => Navigator.pop(context),
-                      )
-                    ],
-                  ),
-                );
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

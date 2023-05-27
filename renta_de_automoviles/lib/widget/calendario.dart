@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Calendario extends StatefulWidget {
@@ -27,6 +28,9 @@ class _CalendarioState extends State<Calendario> {
             setState(() {
               fechaseleccionada = dateTimeRange;
             });
+            CreateCalendar(
+                FechaInicio: fechaseleccionada.start,
+                FechaFin: fechaseleccionada.end);
           }
         },
         child: Text(
@@ -40,4 +44,38 @@ class _CalendarioState extends State<Calendario> {
       ),
     );
   }
+}
+
+Future CreateCalendar({
+  required DateTime FechaFin,
+  required DateTime FechaInicio,
+}) async {
+  final docUser = FirebaseFirestore.instance.collection('Reservaciones').doc();
+
+  final calendar = Calendar(
+    id: docUser.id,
+    FechaFin: FechaFin,
+    FechaInicio: FechaInicio,
+  );
+  final json = calendar.toJson();
+
+  await docUser.set(json);
+}
+
+class Calendar {
+  String id;
+  final DateTime FechaFin;
+  final DateTime FechaInicio;
+
+  Calendar({
+    this.id = "",
+    required this.FechaFin,
+    required this.FechaInicio,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'FechaFin': FechaFin,
+        'FechaInicio': FechaInicio,
+      };
 }
