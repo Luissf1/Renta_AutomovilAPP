@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Calendario extends StatefulWidget {
-  const Calendario({Key? key}) : super(key: key);
+  //const Calendario({Key? key}) : super(key: key);
 
   @override
   _CalendarioState createState() {
@@ -78,4 +78,10 @@ class Calendar {
         'FechaFin': FechaFin,
         'FechaInicio': FechaInicio,
       };
+
+  static Calendar fromJson(Map<String, dynamic> json) => Calendar(
+        id: json['Favorito'],
+        FechaFin: json['FechaFin'],
+        FechaInicio: json['FechaInicio'],
+      );
 }

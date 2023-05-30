@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
@@ -29,7 +30,7 @@ class _BarraDetalleState extends State<BarraDetalle> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       GestureDetector(
                         onTap: () {
@@ -44,14 +45,34 @@ class _BarraDetalleState extends State<BarraDetalle> {
                           child: SvgPicture.asset('assets/icons/regreso.svg'),
                         ),
                       ),
-                      Container(
-                        height: 28,
-                        width: 28,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Colors.grey, shape: BoxShape.circle),
-                        child: SvgPicture.asset('assets/icons/guardar.svg'),
-                      ),
+                      /*GestureDetector(
+                        onTap: () {
+                          final docGuardado = FirebaseFirestore.instance
+                              .collection('Auto')
+                              .doc(widget.auto.id.trim());
+
+                          if (widget.auto.Favorito == 'Si') {
+                            BoxDecoration(color: Colors.grey);
+
+                            docGuardado.update({
+                              'Favorito': 'No',
+                            });
+                          } else {
+                            BoxDecoration(color: Theme.of(context).accentColor);
+                            docGuardado.update({
+                              'Favorito': 'Si',
+                            });
+                          }
+                        },
+                        child: Container(
+                          height: 28,
+                          width: 28,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: Colors.grey, shape: BoxShape.circle),
+                          child: SvgPicture.asset('assets/icons/guardar.svg'),
+                        ),
+                      ),*/
                     ],
                   ),
                 ),

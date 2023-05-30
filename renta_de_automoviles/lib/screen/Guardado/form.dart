@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/screen/Guardado/Guardados/Guardado.dart';
 import 'package:renta_de_automoviles/screen/home/widget/barra_menu.dart';
-import 'package:renta_de_automoviles/screen/Guardado/Guardados/Guardado.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../home/inicio.dart';

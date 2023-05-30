@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
-import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
+//import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 
 import '../../home/inicio.dart';
 //import 'package:renta_de_automoviles/widget/boton_guardado.dart';
@@ -22,7 +22,7 @@ class _ReservadosState extends State<Reservados> {
   void BusquedaDeFireBase() async {
     final resultado = await FirebaseFirestore.instance
         .collection('Auto')
-        .where('Estado', isEqualTo: 'Disponible')
+        .where('Estado', isEqualTo: 'Reservado')
         .get();
 
     setState(() {
@@ -103,7 +103,7 @@ class _ReservadosState extends State<Reservados> {
                                             fontWeight: FontWeight.bold)),
                                 Text(
                                     //'${autos[index].precio} MXN',
-                                    '${busquedaReservados[index]['precio']} MXN',
+                                    '\$${busquedaReservados[index]['precio']} MXN',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -118,17 +118,13 @@ class _ReservadosState extends State<Reservados> {
                                     final docCancelado = FirebaseFirestore
                                         .instance
                                         .collection('Auto')
-                                        .doc(
-                                            '${busquedaReservados[index]['Estado']}');
-
-                                    //.doc('uOVly9GlF2JJMNrxAvd6');
+                                        .doc(busquedaReservados[index]['id']
+                                            .trim());
 
                                     docCancelado.update({
-                                      'Estado': 'Cancelado',
+                                      'Estado': 'Disponible',
                                     });
 
-                                    // busquedaReservados[index]['Estado'] =
-                                    //   'Cancelado';
                                     showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(

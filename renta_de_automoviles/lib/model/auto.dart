@@ -66,7 +66,19 @@ class Auto {
       transmision: json['transmision'],
       estereo: json['estereo'],
       frenos: json['frenos']);
+
+  updateAuto() {
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("Auto").doc(id);
+
+    Map<String, dynamic> autos = {
+      'id': 'Disponible',
+    };
+    documentReference.update(autos);
+  }
 }
+
+
 
 /*
 class Auto {

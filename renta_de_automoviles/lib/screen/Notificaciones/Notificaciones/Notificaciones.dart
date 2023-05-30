@@ -10,14 +10,33 @@ Stream<List<Auto>> readUsers() =>
     FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
-class Notificaciones extends StatelessWidget {
+class Notificaciones extends StatefulWidget {
+  @override
+  State<Notificaciones> createState() => _NotificacionesState();
+}
+
+class _NotificacionesState extends State<Notificaciones> {
+  List busquedaNotificacion = [];
+
+  void BusquedaDeFireBase() async {
+    final resultado = await FirebaseFirestore.instance
+        .collection('Auto')
+        .where('Estado', isEqualTo: 'Reservado')
+        .get();
+
+    setState(() {
+      busquedaNotificacion = resultado.docs.map((e) => e.data()).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Auto>>(
       stream: readUsers(),
       builder: (context, snapshot) {
-        if (snapshot.hasData /*&& auto.Estado.startsWith('Disponible')*/) {
-          final autos = snapshot.data!;
+        BusquedaDeFireBase();
+        if (snapshot.hasData && busquedaNotificacion.isNotEmpty) {
+          //final autos = snapshot.data!;
           return Container(
             height: 500,
             child: ListView.separated(
@@ -53,14 +72,15 @@ class Notificaciones extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Image.network(autos[index].urlimagen),
+                              child: Image.network(
+                                  busquedaNotificacion[index]['urlimagen']),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  autos[index].modelo,
+                                  busquedaNotificacion[index]['modelo'],
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline1!
@@ -69,14 +89,15 @@ class Notificaciones extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
-                                Text(autos[index].ubicacion,
+                                Text(busquedaNotificacion[index]['ubicacion'],
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                Text('${autos[index].precio} MXN',
+                                Text(
+                                    '\$${busquedaNotificacion[index]['precio']} MXN',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -139,7 +160,7 @@ class Notificaciones extends StatelessWidget {
                       //Fin
                     ),
                 separatorBuilder: (_, index) => SizedBox(height: 30),
-                itemCount: autos.length),
+                itemCount: busquedaNotificacion.length),
             //children: autos.map(buildUser).toList(),
           );
           //  );

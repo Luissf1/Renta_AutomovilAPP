@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 
-import '../../detail/detalles.dart';
-import '../../home/inicio.dart';
+//import '../../detail/detalles.dart';
+//import '../../home/inicio.dart';
 //import 'package:renta_de_automoviles/widget/boton_guardado.dart';
 //import 'package:renta_de_automoviles/widget/caracteristicas.dart';
 
@@ -87,7 +87,7 @@ class _GuardadosState extends State<Guardados> {
                                       .textTheme
                                       .headline1!
                                       .copyWith(
-                                        fontSize: 20,
+                                        fontSize: 13,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
@@ -96,15 +96,15 @@ class _GuardadosState extends State<Guardados> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 16,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.bold)),
                                 Text(
-                                    '${busquedaGuardados[index]['precio']} MXN',
+                                    '\$${busquedaGuardados[index]['precio']} MXN',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 16,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.bold)),
                                 SizedBox(
                                   height: 10,

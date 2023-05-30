@@ -1,11 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
+import 'package:renta_de_automoviles/widget/calendario.dart';
 
-import '../../../widget/calendario.dart';
+Stream<List<Calendar>> readDates() => FirebaseFirestore.instance
+    .collection('Reservaciones')
+    .snapshots()
+    .map((snapshot) =>
+        snapshot.docs.map((doc) => Calendar.fromJson(doc.data())).toList());
 
 // Crea un Widget Form
 class MyCustomForm extends StatefulWidget {
+  final Auto auto;
+  //final Calendar calendar;
+  const MyCustomForm({Key? key, required this.auto}) : super(key: key);
+
   @override
   MyCustomFormState createState() {
     return MyCustomFormState();
@@ -231,6 +240,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                   // Si el formulario es válido, queremos mostrar un Snackbar
                   //ScaffoldMessenger.of(context).showSnackBar;
                   createUser(user);
+
+                  final docReservado = FirebaseFirestore.instance
+                      .collection('Auto')
+                      .doc(widget.auto.id.trim());
+
+                  docReservado.update({
+                    'Estado': 'Reservado',
+                    'Favorito': 'No',
+                  });
+
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
