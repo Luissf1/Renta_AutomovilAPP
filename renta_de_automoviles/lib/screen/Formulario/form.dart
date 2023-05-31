@@ -27,12 +27,7 @@ class PaginaForm extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Inicio(),
-                          ),
-                        );
+                        Navigator.of(context).pop();
                       },
                       child: Container(
                         height: 28,
@@ -76,7 +71,7 @@ class PaginaForm extends StatelessWidget {
                     Text(
                       auto.modelo,
                       style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 20,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -85,7 +80,7 @@ class PaginaForm extends StatelessWidget {
                             .textTheme
                             .headlineLarge!
                             .copyWith(
-                                fontSize: 16, fontWeight: FontWeight.bold)),
+                                fontSize: 14, fontWeight: FontWeight.bold)),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).pop();
@@ -93,7 +88,7 @@ class PaginaForm extends StatelessWidget {
                       child: Text(
                         'Editar',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline),
                       ),

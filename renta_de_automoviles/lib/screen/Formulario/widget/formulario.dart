@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/widget/calendario.dart';
 
+import '../../home/inicio.dart';
+
 Stream<List<Calendar>> readDates() => FirebaseFirestore.instance
     .collection('Reservaciones')
     .snapshots()
@@ -258,7 +260,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                       actions: [
                         TextButton(
                           child: Text('OK'),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Inicio(),
+                            ),
+                          ),
                         )
                       ],
                     ),

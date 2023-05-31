@@ -6,8 +6,12 @@ import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 import 'package:renta_de_automoviles/widget/boton_guardado.dart';
 import 'package:renta_de_automoviles/widget/caracteristicas.dart';
 
-Stream<List<Auto>> readUsers() =>
-    FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
+Stream<List<Auto>> readUsers() => FirebaseFirestore.instance
+    .collection('Auto')
+    .where('Estado', isEqualTo: 'Disponible')
+    .where('categoria', isEqualTo: 'Suv')
+    .snapshots()
+    .map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
 Widget buildUser(Auto auto) => ListTile(
@@ -53,7 +57,7 @@ class _SuvState extends State<Suv> {
       builder: (context, snapshot) {
         BusquedaDeFireBase();
         if (snapshot.hasData && busquedaDisponible.isNotEmpty) {
-          //final autos = snapshot.data!;
+          final autos = snapshot.data!;
           return Container(
             height: 450,
             child: ListView.separated(
@@ -64,8 +68,8 @@ class _SuvState extends State<Suv> {
                           MaterialPageRoute(
                             builder: (context) {
                               return BarraDetalle(
-                                auto: busquedaDisponible[index],
-                                //auto:autos[index],
+                                //auto: busquedaDisponible[index],
+                                auto: autos[index],
                               );
                             },
                           ),

@@ -8,8 +8,11 @@ import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 //import 'package:renta_de_automoviles/widget/boton_guardado.dart';
 //import 'package:renta_de_automoviles/widget/caracteristicas.dart';
 
-Stream<List<Auto>> readUsers() =>
-    FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
+Stream<List<Auto>> readUsers() => FirebaseFirestore.instance
+    .collection('Auto')
+    .where('Favorito', isEqualTo: 'Si')
+    .snapshots()
+    .map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
 
 class Guardados extends StatefulWidget {
