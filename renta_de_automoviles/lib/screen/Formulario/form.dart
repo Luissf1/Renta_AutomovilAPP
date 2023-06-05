@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/Formulario/widget/formulario.dart';
-import 'package:renta_de_automoviles/widget/calendario.dart';
 
-import '../home/inicio.dart';
+//import '../home/inicio.dart';
 
 class PaginaForm extends StatelessWidget {
   final Auto auto;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
+import 'package:renta_de_automoviles/widget/calendario.dart';
 
 class PaginaDetalle extends StatelessWidget {
   final Auto auto;

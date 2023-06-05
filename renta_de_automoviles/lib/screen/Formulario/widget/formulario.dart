@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
-import 'package:renta_de_automoviles/widget/calendario.dart';
 
 import '../../home/inicio.dart';
 
-Stream<List<Calendar>> readDates() => FirebaseFirestore.instance
-    .collection('Reservaciones')
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Calendar.fromJson(doc.data())).toList());
+CollectionReference collectionRef =
+    FirebaseFirestore.instance.collection('Reservaciones');
+DocumentReference docRef = collectionRef.doc('lcgn6Yvixl8XvdFhauVX');
 
 // Crea un Widget Form
 class MyCustomForm extends StatefulWidget {
@@ -35,6 +32,12 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+    double a = double.parse(widget.auto.diasreservados);
+    double b = double.parse(widget.auto.precio);
+    double subtotal = 0;
+    subtotal = a * b;
+    double total = subtotal + 200;
+
     final Controllernombre = TextEditingController();
     final Controllerapellido = TextEditingController();
     final Controllercorreo = TextEditingController();
@@ -157,13 +160,13 @@ class MyCustomFormState extends State<MyCustomForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '\$348 mxn x 8 dias',
+                    '\$348 mxn x ${widget.auto.diasreservados} dias',
                     style: Theme.of(context)
                         .textTheme
                         .headlineLarge!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Text('\$2,784.00',
+                  Text('\$${subtotal.toStringAsFixed(2)}',
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge!
@@ -193,6 +196,26 @@ class MyCustomFormState extends State<MyCustomForm> {
               SizedBox(
                 height: 18,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text('\$${total.toStringAsFixed(2)}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
+              SizedBox(
+                height: 18,
+              ),
               Text(
                 'Fecha',
                 style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -206,12 +229,13 @@ class MyCustomFormState extends State<MyCustomForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  /*Text('\$2,784.00',
+                  Text('${widget.auto.FechaInicio}-${widget.auto.FechaFin}',
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),*/
-                  Calendario(),
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+
+                  //Calendario(),
                 ],
               )
             ],

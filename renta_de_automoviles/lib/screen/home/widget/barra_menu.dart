@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:renta_de_automoviles/screen/Notificaciones/Notificaciones/Notificaciones.dart';
+//import 'package:renta_de_automoviles/screen/Notificaciones/Notificaciones/Notificaciones.dart';
 import 'package:renta_de_automoviles/screen/Reservaciones/form.dart';
 import 'package:renta_de_automoviles/screen/home/inicio.dart';
 

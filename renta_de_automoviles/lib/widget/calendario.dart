@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../model/auto.dart';
 
 class Calendario extends StatefulWidget {
-  //const Calendario({Key? key}) : super(key: key);
+  final Auto auto;
+  const Calendario({Key? key, required this.auto}) : super(key: key);
 
   @override
   _CalendarioState createState() {
@@ -31,6 +33,18 @@ class _CalendarioState extends State<Calendario> {
             CreateCalendar(
                 FechaInicio: fechaseleccionada.start,
                 FechaFin: fechaseleccionada.end);
+
+            final docReservado = FirebaseFirestore.instance
+                .collection('Auto')
+                .doc(widget.auto.id.trim());
+
+            docReservado.update({
+              'FechaInicio':
+                  '${fechaseleccionada.start.day}/${fechaseleccionada.start.month}/${fechaseleccionada.start.year}',
+              'FechaFin':
+                  '${fechaseleccionada.end.day}/${fechaseleccionada.end.month}/${fechaseleccionada.end.year}',
+              'diasreservados': '${fechaseleccionada.duration.inDays}',
+            });
           }
         },
         child: Text(

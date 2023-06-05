@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:renta_de_automoviles/screen/home/inicio.dart';
-import 'package:flutter/src/rendering/box.dart';
+//import 'package:flutter/src/rendering/box.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

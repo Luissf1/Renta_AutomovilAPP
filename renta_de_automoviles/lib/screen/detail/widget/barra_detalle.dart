@@ -312,7 +312,7 @@ class _BarraDetalleState extends State<BarraDetalle> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Calendario(),
+                              Calendario(auto: widget.auto),
                             ],
                           ),
                           Text(

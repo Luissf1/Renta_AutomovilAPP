@@ -296,9 +296,10 @@ class Recomendados extends StatefulWidget {
 
 class _RecomendadosState extends State<Recomendados> {
   List busquedaDisponible = [];
+  String busqueda = '';
 
   void BusquedaDeFireBase() async {
-    if (CategoriaAuto == 'Recomendados') {
+    if (CategoriaAuto == 'Recomendados' && (busqueda.isEmpty)) {
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
           .where('Estado', isEqualTo: 'Disponible')
@@ -307,7 +308,7 @@ class _RecomendadosState extends State<Recomendados> {
       setState(() {
         busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
       });
-    } else if (CategoriaAuto == 'Economico') {
+    } else if (CategoriaAuto == 'Economico' && busqueda.isEmpty) {
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
           .where('Estado', isEqualTo: 'Disponible')
@@ -317,7 +318,7 @@ class _RecomendadosState extends State<Recomendados> {
       setState(() {
         busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
       });
-    } else if (CategoriaAuto == 'Intermedio') {
+    } else if (CategoriaAuto == 'Intermedio' && busqueda.isEmpty) {
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
           .where('Estado', isEqualTo: 'Disponible')
@@ -327,7 +328,7 @@ class _RecomendadosState extends State<Recomendados> {
       setState(() {
         busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
       });
-    } else if (CategoriaAuto == 'Suv') {
+    } else if (CategoriaAuto == 'Suv' && busqueda.isEmpty) {
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
           .where('Estado', isEqualTo: 'Disponible')
@@ -337,7 +338,25 @@ class _RecomendadosState extends State<Recomendados> {
       setState(() {
         busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
       });
-    } else {
+    } else if (busqueda.isNotEmpty) {
+      CategoriaAuto = 'Recomendados';
+
+      final resultado = await FirebaseFirestore.instance
+          .collection('Auto')
+          .where('ubicacion', isEqualTo: busqueda)
+          .get();
+
+      setState(() {
+        busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
+
+        stream = FirebaseFirestore.instance
+            .collection('Auto')
+            .where('ubicacion', isEqualTo: busqueda)
+            .snapshots()
+            .map((snapshot) =>
+                snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
+      });
+    } else if (busqueda.isEmpty && busquedaDisponible.isEmpty) {
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
           .where('Estado', isEqualTo: 'Disponible')
@@ -346,6 +365,26 @@ class _RecomendadosState extends State<Recomendados> {
       setState(() {
         busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
       });
+    } else {
+      print('Error');
+      /*CategoriaAuto = 'Recomendados';
+      print(CategoriaAuto);
+
+      final resultado = await FirebaseFirestore.instance
+          .collection('Auto')
+          .where('Estado', isEqualTo: 'Disponible')
+          .get();
+
+      setState(() {
+        busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
+
+        stream = FirebaseFirestore.instance
+            .collection('Auto')
+            .where('Estado', isEqualTo: 'Disponible')
+            .snapshots()
+            .map((snapshot) =>
+                snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
+      });*/
     }
   }
 
@@ -396,7 +435,8 @@ class _RecomendadosState extends State<Recomendados> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 PopupMenuButton<_MenuValue>(
                   /*icon: Icon(
@@ -497,9 +537,10 @@ class _RecomendadosState extends State<Recomendados> {
                   );
                 },
                 icon: SvgPicture.asset('assets/icons/menu.svg')),*/
-                IconButton(
+
+                /*IconButton(
                     onPressed: () {},
-                    icon: Image.asset('assets/icons/user.png'))
+                    icon: Image.asset('assets/icons/user.png'))*/
               ],
             ),
           ),
@@ -526,7 +567,7 @@ class _RecomendadosState extends State<Recomendados> {
               ],
             ),
           ),
-          Container(
+          /*Container(
             padding: EdgeInsets.all(15),
             child: TextField(
               decoration: InputDecoration(
@@ -543,12 +584,53 @@ class _RecomendadosState extends State<Recomendados> {
                   ),
                   contentPadding: EdgeInsets.all(2)),
             ),
+          ),*/
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    hintText: 'Ingrese ubicacion ...',
+                    prefixIcon: Container(
+                      padding: EdgeInsets.all(15),
+                      child: SvgPicture.asset('assets/icons/search.svg'),
+                    ),
+                    contentPadding: EdgeInsets.all(2)),
+                onChanged: (value) => {
+                  busqueda = value.toString(),
+                  print(busqueda),
+                  print(busquedaDisponible.length),
+                  if (busquedaDisponible.length == 0 && busqueda.length == 0)
+                    {
+                      //busquedaDisponible = [],
+                      busqueda = '',
+                      CategoriaAuto = 'Recomendados',
+                      print('Vacio'),
+
+                      stream = FirebaseFirestore.instance
+                          .collection('Auto')
+                          .where('Estado', isEqualTo: 'Disponible')
+                          .snapshots()
+                          .map((snapshot) => snapshot.docs
+                              .map((doc) => Auto.fromJson(doc.data()))
+                              .toList()),
+                      //BusquedaDeFireBase(),
+                    }
+                },
+              ),
+            ),
           ),
           StreamBuilder<List<Auto>>(
             stream: readUser(),
             builder: (context, snapshot) {
               BusquedaDeFireBase();
-              if (snapshot.hasData && busquedaDisponible.isNotEmpty) {
+              if (snapshot.hasData && (busquedaDisponible.isNotEmpty)) {
                 final autos = snapshot.data!;
                 return Container(
                   height: 450,

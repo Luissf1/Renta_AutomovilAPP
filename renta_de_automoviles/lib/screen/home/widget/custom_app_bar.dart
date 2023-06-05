@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:renta_de_automoviles/screen/home/widget/Inicio2.dart';
-import 'package:renta_de_automoviles/screen/home/widget/Inicio3.dart';
-import 'package:renta_de_automoviles/screen/home/widget/Inicio4.dart';
 
 import '../inicio.dart';
 
@@ -74,7 +71,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Inicio2(),
+                        builder: (context) => Inicio(),
                       ),
                     );
                     break;
@@ -83,7 +80,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Inicio3(),
+                        builder: (context) => Inicio(),
                       ),
                     );
                     break;
@@ -92,7 +89,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Inicio4(),
+                        builder: (context) => Inicio(),
                       ),
                     );
                     break;

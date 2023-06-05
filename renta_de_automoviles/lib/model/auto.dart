@@ -16,6 +16,9 @@ class Auto {
   final String transmision;
   final String estereo;
   final String frenos;
+  final String FechaFin;
+  final String FechaInicio;
+  final String diasreservados;
 
   Auto({
     this.id = '',
@@ -32,6 +35,9 @@ class Auto {
     required this.transmision,
     required this.estereo,
     required this.frenos,
+    required this.FechaInicio,
+    required this.FechaFin,
+    required this.diasreservados,
   });
 
   Map<String, dynamic> toJson() => {
@@ -49,23 +55,30 @@ class Auto {
         'transmision': transmision,
         'estereo': estereo,
         'frenos': frenos,
+        'FechaFin': FechaFin,
+        'FechaInicio': FechaInicio,
+        'diasreservados': diasreservados,
       };
 
   static Auto fromJson(Map<String, dynamic> json) => Auto(
-      id: json['id'],
-      Favorito: json['Favorito'],
-      Estado: json['Estado'],
-      modelo: json['modelo'],
-      categoria: json['categoria'],
-      ubicacion: json['ubicacion'],
-      asientos: json['asientos'],
-      maletas: json['maletas'],
-      puertas: json['puertas'],
-      precio: json['precio'],
-      urlimagen: json['urlimagen'],
-      transmision: json['transmision'],
-      estereo: json['estereo'],
-      frenos: json['frenos']);
+        id: json['id'],
+        Favorito: json['Favorito'],
+        Estado: json['Estado'],
+        modelo: json['modelo'],
+        categoria: json['categoria'],
+        ubicacion: json['ubicacion'],
+        asientos: json['asientos'],
+        maletas: json['maletas'],
+        puertas: json['puertas'],
+        precio: json['precio'],
+        urlimagen: json['urlimagen'],
+        transmision: json['transmision'],
+        estereo: json['estereo'],
+        frenos: json['frenos'],
+        FechaFin: json['FechaFin'],
+        FechaInicio: json['FechaInicio'],
+        diasreservados: json['diasreservados'],
+      );
 
   updateAuto() {
     DocumentReference documentReference =
