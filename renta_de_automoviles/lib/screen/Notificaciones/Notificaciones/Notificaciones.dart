@@ -2,10 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 
-import '../../home/inicio.dart';
-//import 'package:renta_de_automoviles/widget/boton_guardado.dart';
-//import 'package:renta_de_automoviles/widget/caracteristicas.dart';
-
 Stream<List<Auto>> readUsers() =>
     FirebaseFirestore.instance.collection('Auto').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
@@ -36,23 +32,12 @@ class _NotificacionesState extends State<Notificaciones> {
       builder: (context, snapshot) {
         BusquedaDeFireBase();
         if (snapshot.hasData && busquedaNotificacion.isNotEmpty) {
-          //final autos = snapshot.data!;
           return Container(
             height: 500,
             child: ListView.separated(
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        /*Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return BarraDetalle(
-                                auto: autos[index],
-                              );
-                            },
-                          ),
-                        );*/
-                      },
+                      onTap: () {},
                       //Inicio
                       child: Container(
                         height: 150,
@@ -85,7 +70,7 @@ class _NotificacionesState extends State<Notificaciones> {
                                       .textTheme
                                       .headline1!
                                       .copyWith(
-                                        fontSize: 20,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
@@ -94,7 +79,7 @@ class _NotificacionesState extends State<Notificaciones> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold)),
                                 Text(
                                     '\$${busquedaNotificacion[index]['precio']} MXN',
@@ -102,7 +87,7 @@ class _NotificacionesState extends State<Notificaciones> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold)),
                                 SizedBox(
                                   height: 40,
@@ -117,41 +102,6 @@ class _NotificacionesState extends State<Notificaciones> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
-                                /*ElevatedButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              title:
-                                                  Text('Reservacion Cancelada'),
-                                              content: Text(
-                                                  'Su reservacion a sido cancelada'),
-                                              actions: [
-                                                TextButton(
-                                                  child: Text('OK'),
-                                                  onPressed: () =>
-                                                      Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Inicio(),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ));
-                                  },
-                                  child: Text(
-                                    'Cancelar',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),*/
                               ],
                             ),
                           ],

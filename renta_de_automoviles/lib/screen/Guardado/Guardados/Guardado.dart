@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 
-//import '../../detail/detalles.dart';
-//import '../../home/inicio.dart';
-//import 'package:renta_de_automoviles/widget/boton_guardado.dart';
-//import 'package:renta_de_automoviles/widget/caracteristicas.dart';
-
 Stream<List<Auto>> readUsers() => FirebaseFirestore.instance
     .collection('Auto')
     .where('Favorito', isEqualTo: 'Si')
@@ -47,17 +42,7 @@ class _GuardadosState extends State<Guardados> {
             child: ListView.separated(
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        /*Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return BarraDetalle(
-                                auto: autos[index],
-                              );
-                            },
-                          ),
-                        );*/
-                      },
+                      onTap: () {},
                       //Inicio
                       child: Container(
                         height: 150,
@@ -144,7 +129,6 @@ class _GuardadosState extends State<Guardados> {
                     ),
                 separatorBuilder: (_, index) => SizedBox(height: 30),
                 itemCount: busquedaGuardados.length),
-            //children: autos.map(buildUser).toList(),
           );
           //  );
         } else if (snapshot.hasError) {

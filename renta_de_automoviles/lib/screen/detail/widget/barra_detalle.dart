@@ -45,34 +45,6 @@ class _BarraDetalleState extends State<BarraDetalle> {
                           child: SvgPicture.asset('assets/icons/regreso.svg'),
                         ),
                       ),
-                      /*GestureDetector(
-                        onTap: () {
-                          final docGuardado = FirebaseFirestore.instance
-                              .collection('Auto')
-                              .doc(widget.auto.id.trim());
-
-                          if (widget.auto.Favorito == 'Si') {
-                            BoxDecoration(color: Colors.grey);
-
-                            docGuardado.update({
-                              'Favorito': 'No',
-                            });
-                          } else {
-                            BoxDecoration(color: Theme.of(context).accentColor);
-                            docGuardado.update({
-                              'Favorito': 'Si',
-                            });
-                          }
-                        },
-                        child: Container(
-                          height: 28,
-                          width: 28,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: Colors.grey, shape: BoxShape.circle),
-                          child: SvgPicture.asset('assets/icons/guardar.svg'),
-                        ),
-                      ),*/
                     ],
                   ),
                 ),

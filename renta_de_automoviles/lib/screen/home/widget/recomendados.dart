@@ -1,223 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-//import 'package:flutter/widgets.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
 import 'package:renta_de_automoviles/screen/detail/widget/barra_detalle.dart';
 import 'package:renta_de_automoviles/widget/boton_guardado.dart';
 import 'package:renta_de_automoviles/widget/caracteristicas.dart';
-//import '../inicio.dart';
-
-/*
-class Recomendados extends StatelessWidget {
-  final listarecomendada = Auto.Recomendados();
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 450,
-      child: ListView.separated(
-          scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return BarraDetalle(
-                          auto: listarecomendada[index],
-                        );
-                      },
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 280,
-                  width: 300,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                listarecomendada[index].urlimagen,
-                              ),
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                      Positioned(
-                        left: 15,
-                        top: 15,
-                        child: Text(
-                          listarecomendada[index].categoria,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                      Positioned(
-                          right: 15,
-                          top: 15,
-                          child: BotonGuardar(
-                              iconUrl: 'assets/icons/guardar.svg',
-                              color: Theme.of(context).accentColor)),
-                      Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            color: Colors.white54,
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      listarecomendada[index].ubicacion,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(listarecomendada[index].precio,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1!
-                                            .copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Caracteristicas(
-                                            iconUrl:
-                                                'assets/icons/Pasajeros.png',
-                                            color: Theme.of(context).cardColor),
-                                        Text(
-                                          listarecomendada[index].asientos,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1!
-                                              .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 2.5,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Caracteristicas(
-                                            iconUrl: 'assets/icons/Maletas.png',
-                                            color: Theme.of(context).cardColor),
-                                        Text(
-                                          listarecomendada[index].maletas,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1!
-                                              .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 2.5,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Caracteristicas(
-                                            iconUrl: 'assets/icons/Puertas.png',
-                                            color: Theme.of(context).cardColor),
-                                        Text(
-                                          listarecomendada[index].puertas,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1!
-                                              .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-          separatorBuilder: (_, index) => SizedBox(height: 30),
-          itemCount: listarecomendada.length),
-    );
-  }
-}*/
-
-/*
-class Recomendados extends StatelessWidget {
-  final controller = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<List<Auto>>(
-      stream: readUsers(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final autos = snapshot.data!;
-          return ListView(
-            children: autos.map(buildUser).toList(),
-          );
-        } else if (snapshot.hasError) {
-          return Text('Algo salio mal! ${snapshot.error}');
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
-  }
-}
-*/
-
-/*Widget buildUser(Auto auto) => ListTile(
-      title: Text(auto.modelo),
-      subtitle: Text(auto.Estado),
-      /*subtitle: Text(auto.modelo),
-      subtitle: Text(auto.categoria),
-      subtitle: Text(auto.ubicacion),
-      subtitle: Text(auto.asientos),
-      subtitle: Text(auto.maletas),
-      subtitle: Text(auto.puertas),
-      subtitle: Text(auto.precio),
-      subtitle: Text(auto.urlimagen),
-      subtitle: Text(auto.transmision),
-      subtitle: Text(auto.estereo),
-      subtitle: Text(auto.frenos),*/
-    );
-    */
 
 enum _MenuValue {
   Todos,
@@ -236,58 +23,6 @@ var stream = FirebaseFirestore.instance
     .snapshots()
     .map((snapshot) =>
         snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-
-/*Stream<List<Auto>> Function() readUser =
-    readUsersRecomendados() as Stream<List<Auto>> Function();
-
-Stream<List<Auto>> readUsersRecomendados() => FirebaseFirestore.instance
-    .collection('Auto')
-    .where('Estado', isEqualTo: 'Disponible')
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-
-Stream<List<Auto>> readUsersEconomicos() => FirebaseFirestore.instance
-    .collection('Auto')
-    .where('Estado', isEqualTo: 'Disponible')
-    .where('categoria', isEqualTo: 'Economico')
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-
-Stream<List<Auto>> readUsersIntermedio() => FirebaseFirestore.instance
-    .collection('Auto')
-    .where('Estado', isEqualTo: 'Disponible')
-    .where('categoria', isEqualTo: 'Intermedio')
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-
-Stream<List<Auto>> readUsersSuv() => FirebaseFirestore.instance
-    .collection('Auto')
-    .where('Estado', isEqualTo: 'Disponible')
-    .where('categoria', isEqualTo: 'Suv')
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-*/
-/*
-Widget buildUser(Auto auto) => ListTile(
-      title: Text(auto.modelo),
-      subtitle: Text(auto.Estado),
-      /*subtitle: Text(auto.modelo),
-      subtitle: Text(auto.categoria),
-      subtitle: Text(auto.ubicacion),
-      subtitle: Text(auto.asientos),
-      subtitle: Text(auto.maletas),
-      subtitle: Text(auto.puertas),
-      subtitle: Text(auto.precio),
-      subtitle: Text(auto.urlimagen),
-      subtitle: Text(auto.transmision),
-      subtitle: Text(auto.estereo),
-      subtitle: Text(auto.frenos),*/
-    );
-*/
 
 class Recomendados extends StatefulWidget {
   @override
@@ -367,63 +102,8 @@ class _RecomendadosState extends State<Recomendados> {
       });
     } else {
       print('Error');
-      /*CategoriaAuto = 'Recomendados';
-      print(CategoriaAuto);
-
-      final resultado = await FirebaseFirestore.instance
-          .collection('Auto')
-          .where('Estado', isEqualTo: 'Disponible')
-          .get();
-
-      setState(() {
-        busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
-
-        stream = FirebaseFirestore.instance
-            .collection('Auto')
-            .where('Estado', isEqualTo: 'Disponible')
-            .snapshots()
-            .map((snapshot) =>
-                snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-      });*/
     }
   }
-
-/*
-  void BusquedaDeFireBaseEconmico() async {
-    final resultado = await FirebaseFirestore.instance
-        .collection('Auto')
-        .where('Estado', isEqualTo: 'Disponible')
-        .where('categoria', isEqualTo: 'Economico')
-        .get();
-
-    setState(() {
-      busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
-    });
-  }
-
-  void BusquedaDeFireBaseIntermedio() async {
-    final resultado = await FirebaseFirestore.instance
-        .collection('Auto')
-        .where('Estado', isEqualTo: 'Disponible')
-        .where('categoria', isEqualTo: 'Intermedio')
-        .get();
-
-    setState(() {
-      busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
-    });
-  }
-
-  void BusquedaDeFireBaseSuv() async {
-    final resultado = await FirebaseFirestore.instance
-        .collection('Auto')
-        .where('Estado', isEqualTo: 'Disponible')
-        .where('categoria', isEqualTo: 'Suv')
-        .get();
-
-    setState(() {
-      busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -435,14 +115,9 @@ class _RecomendadosState extends State<Recomendados> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 PopupMenuButton<_MenuValue>(
-                  /*icon: Icon(
-                Icons.more,
-                color: Colors.green,
-              ),*/
                   icon: SvgPicture.asset('assets/icons/menu.svg'),
                   itemBuilder: (BuildContext context) => [
                     PopupMenuItem(
@@ -525,22 +200,6 @@ class _RecomendadosState extends State<Recomendados> {
                     }
                   }),
                 ),
-                /*IconButton(
-                onPressed: () {
-                  Center(
-                    child: 
-                    DropdownButton<String>(
-                      value: value,
-                      items: items.map(buildMenuItem).toList(),
-                      onChanged: (value) => setState(() => this.value = value),
-                    ),
-                  );
-                },
-                icon: SvgPicture.asset('assets/icons/menu.svg')),*/
-
-                /*IconButton(
-                    onPressed: () {},
-                    icon: Image.asset('assets/icons/user.png'))*/
               ],
             ),
           ),
@@ -567,24 +226,6 @@ class _RecomendadosState extends State<Recomendados> {
               ],
             ),
           ),
-          /*Container(
-            padding: EdgeInsets.all(15),
-            child: TextField(
-              decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  hintText: 'Ingrese ubicacion ...',
-                  prefixIcon: Container(
-                    padding: EdgeInsets.all(15),
-                    child: SvgPicture.asset('assets/icons/search.svg'),
-                  ),
-                  contentPadding: EdgeInsets.all(2)),
-            ),
-          ),*/
           Container(
             child: Padding(
               padding: const EdgeInsets.all(15.0),

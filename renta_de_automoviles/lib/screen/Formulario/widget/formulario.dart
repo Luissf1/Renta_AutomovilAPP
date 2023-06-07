@@ -128,21 +128,6 @@ class MyCustomFormState extends State<MyCustomForm> {
               },
             ),
           ),
-          /*
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // devolverá true si el formulario es válido, o falso si
-                // el formulario no es válido.
-                if (_formKey.currentState!.validate()) {
-                  // Si el formulario es válido, queremos mostrar un Snackbar
-                  ScaffoldMessenger.of(context).showSnackBar;
-                }
-              },
-              child: Text('Enviar'),
-            ),
-          ),*/
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -244,18 +229,6 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () {
-                /*
-                final nombre = controller.text;
-                final apellido = controller.text;
-                final correo = controller.text;
-                final telefono = controller.text;
-
-                CreateUser(
-                    nombre: nombre,
-                    apellido: apellido,
-                    correo: correo,
-                    telefono: telefono);*/
-
                 final user = User(
                     nombre: Controllernombre.text,
                     apellido: Controllerapellido.text,
@@ -323,68 +296,6 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
-
-/*
-Future CreateUser(
-    {required String nombre,
-    required String apellido,
-    required String correo,
-    required String telefono}) async {
-  final docUser =
-      FirebaseFirestore.instance.collection('Usuarios').doc('my-id');
-
-  final json = {
-    'nombre': nombre,
-    'apellido': apellido,
-    'correo': correo,
-    'telefono': 'prueba',
-  };
-
-  await docUser.set(json);
-}*/
-/*
-Future CreateUser(
-    {required String nombre,
-    required String apellido,
-    required String correo,
-    required String telefono}) async {
-  final docUser = FirebaseFirestore.instance.collection('Usuarios').doc();
-
-  final user = User(
-    id: docUser.id,
-    nombre: nombre,
-    apellido: apellido,
-    correo: correo,
-    telefono: telefono,
-  );
-  final json = user.toJson();
-
-  await docUser.set(json);
-}
-
-class User {
-  String id;
-  final String nombre;
-  final String apellido;
-  final String correo;
-  final String telefono;
-
-  User({
-    this.id = "",
-    required this.nombre,
-    required this.apellido,
-    required this.correo,
-    required this.telefono,
-  });
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'nombre': nombre,
-        'apellido': apellido,
-        'correo': correo,
-        'telefono': telefono,
-      };
-}*/
 
 Future createUser(User user) async {
   final docUser = FirebaseFirestore.instance.collection('Usuarios').doc();
