@@ -30,13 +30,118 @@ class MyCustomFormState extends State<MyCustomForm> {
   // Nota: Esto es un GlobalKey<FormState>, no un GlobalKey<MyCustomFormState>!
   final _formKey = GlobalKey<FormState>();
 
+  Stream<List<Auto>> readUser() => FirebaseFirestore.instance
+      .collection('Auto')
+      .where('Estado', isEqualTo: 'Disponible')
+      .where('modelo', isEqualTo: widget.auto.modelo)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
+
+  List busquedaDisponible = [];
+
   @override
   Widget build(BuildContext context) {
-    double a = double.parse(widget.auto.diasreservados);
-    double b = double.parse(widget.auto.precio);
-    double subtotal = 0;
-    subtotal = a * b;
-    double total = subtotal + 200;
+    Widget Operaciones(Auto auto) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Detalles de total',
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '\$${auto.precio} x ${auto.diasreservados} dias',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                //Text('\$${subtotal.toStringAsFixed(2)}',
+                Text(
+                    '\$${(double.parse(auto.precio) * double.parse(auto.diasreservados)).toStringAsFixed(2)}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+              ],
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Seguro',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text('\$200.00',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+              ],
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Total',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                    '\$${((double.parse(auto.precio) * double.parse(auto.diasreservados)) + 200).toStringAsFixed(2)}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+              ],
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Text(
+              'Fecha',
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text('${auto.FechaInicio}-${auto.FechaFin}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+
+                //Calendario(),
+              ],
+            )
+          ],
+        );
 
     final Controllernombre = TextEditingController();
     final Controllerapellido = TextEditingController();
@@ -131,98 +236,22 @@ class MyCustomFormState extends State<MyCustomForm> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Detalles de total',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '\$348 mxn x ${widget.auto.diasreservados} dias',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text('\$${subtotal.toStringAsFixed(2)}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Seguro',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text('\$200.00',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text('\$${total.toStringAsFixed(2)}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Text(
-                'Fecha',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text('${widget.auto.FechaInicio}-${widget.auto.FechaFin}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
-
-                  //Calendario(),
-                ],
-              )
+              StreamBuilder<List<Auto>>(
+                  stream: readUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final autos = snapshot.data!;
+                      return Column(
+                        children: autos.map(Operaciones).toList(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error ${snapshot.error}');
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
             ],
           ),
           Padding(

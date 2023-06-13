@@ -13,26 +13,16 @@ enum _MenuValue {
   Suv,
 }
 
-String CategoriaAuto = 'Recomendados';
-
-Stream<List<Auto>> readUser() => stream;
-
-var stream = FirebaseFirestore.instance
-    .collection('Auto')
-    .where('Estado', isEqualTo: 'Disponible')
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-
 class Recomendados extends StatefulWidget {
   @override
   State<Recomendados> createState() => _RecomendadosState();
 }
 
-class _RecomendadosState extends State<Recomendados> {
-  List busquedaDisponible = [];
-  String busqueda = '';
+String CategoriaAuto = 'Recomendados';
+List busquedaDisponible = [];
+String busqueda = '';
 
+class _RecomendadosState extends State<Recomendados> {
   void BusquedaDeFireBase() async {
     if (CategoriaAuto == 'Recomendados' && (busqueda.isEmpty)) {
       final resultado = await FirebaseFirestore.instance
@@ -74,27 +64,9 @@ class _RecomendadosState extends State<Recomendados> {
         busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
       });
     } else if (busqueda.isNotEmpty) {
-      CategoriaAuto = 'Recomendados';
-
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
           .where('ubicacion', isEqualTo: busqueda)
-          .get();
-
-      setState(() {
-        busquedaDisponible = resultado.docs.map((e) => e.data()).toList();
-
-        stream = FirebaseFirestore.instance
-            .collection('Auto')
-            .where('ubicacion', isEqualTo: busqueda)
-            .snapshots()
-            .map((snapshot) =>
-                snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
-      });
-    } else if (busqueda.isEmpty && busquedaDisponible.isEmpty) {
-      final resultado = await FirebaseFirestore.instance
-          .collection('Auto')
-          .where('Estado', isEqualTo: 'Disponible')
           .get();
 
       setState(() {
@@ -105,6 +77,14 @@ class _RecomendadosState extends State<Recomendados> {
     }
   }
 
+  Stream<List<Auto>> readUser() => stream;
+
+  var stream = FirebaseFirestore.instance
+      .collection('Auto')
+      .where('Estado', isEqualTo: 'Disponible')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -149,6 +129,7 @@ class _RecomendadosState extends State<Recomendados> {
                             .map((snapshot) => snapshot.docs
                                 .map((doc) => Auto.fromJson(doc.data()))
                                 .toList());
+                        busqueda = '';
                         break;
                       case _MenuValue.Economico:
                         print('Economico');
@@ -161,6 +142,7 @@ class _RecomendadosState extends State<Recomendados> {
                             .map((snapshot) => snapshot.docs
                                 .map((doc) => Auto.fromJson(doc.data()))
                                 .toList());
+                        busqueda = '';
                         break;
                       case _MenuValue.Intermedio:
                         print('Intermedio');
@@ -173,6 +155,7 @@ class _RecomendadosState extends State<Recomendados> {
                             .map((snapshot) => snapshot.docs
                                 .map((doc) => Auto.fromJson(doc.data()))
                                 .toList());
+                        busqueda = '';
                         break;
                       case _MenuValue.Suv:
                         print('Suv');
@@ -185,17 +168,9 @@ class _RecomendadosState extends State<Recomendados> {
                             .map((snapshot) => snapshot.docs
                                 .map((doc) => Auto.fromJson(doc.data()))
                                 .toList());
+                        busqueda = '';
                         break;
                       default:
-                        print('Recomendados');
-                        CategoriaAuto = 'Recomendados';
-                        stream = FirebaseFirestore.instance
-                            .collection('Auto')
-                            .where('Estado', isEqualTo: 'Disponible')
-                            .snapshots()
-                            .map((snapshot) => snapshot.docs
-                                .map((doc) => Auto.fromJson(doc.data()))
-                                .toList());
                         break;
                     }
                   }),
@@ -230,6 +205,7 @@ class _RecomendadosState extends State<Recomendados> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextField(
+                //autofocus: true,
                 decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -245,15 +221,19 @@ class _RecomendadosState extends State<Recomendados> {
                     contentPadding: EdgeInsets.all(2)),
                 onChanged: (value) => {
                   busqueda = value.toString(),
+                  stream = FirebaseFirestore.instance
+                      .collection('Auto')
+                      .where('ubicacion', isEqualTo: busqueda)
+                      .snapshots()
+                      .map((snapshot) => snapshot.docs
+                          .map((doc) => Auto.fromJson(doc.data()))
+                          .toList()),
                   print(busqueda),
                   print(busquedaDisponible.length),
-                  if (busquedaDisponible.length == 0 && busqueda.length == 0)
+                  if ((busqueda.isEmpty) && (busquedaDisponible.isEmpty))
                     {
-                      //busquedaDisponible = [],
-                      busqueda = '',
+                      print('Recomendados'),
                       CategoriaAuto = 'Recomendados',
-                      print('Vacio'),
-
                       stream = FirebaseFirestore.instance
                           .collection('Auto')
                           .where('Estado', isEqualTo: 'Disponible')
@@ -261,7 +241,6 @@ class _RecomendadosState extends State<Recomendados> {
                           .map((snapshot) => snapshot.docs
                               .map((doc) => Auto.fromJson(doc.data()))
                               .toList()),
-                      //BusquedaDeFireBase(),
                     }
                 },
               ),
@@ -271,7 +250,7 @@ class _RecomendadosState extends State<Recomendados> {
             stream: readUser(),
             builder: (context, snapshot) {
               BusquedaDeFireBase();
-              if (snapshot.hasData && (busquedaDisponible.isNotEmpty)) {
+              if (snapshot.hasData && busquedaDisponible.isNotEmpty) {
                 final autos = snapshot.data!;
                 return Container(
                   height: 450,
@@ -339,9 +318,7 @@ class _RecomendadosState extends State<Recomendados> {
                                               .doc(busquedaDisponible[index]
                                                       ['id']
                                                   .trim());
-                                          //.doc(autos[index].id.trim());
 
-                                          //if (autos[index].Favorito == 'Si') {
                                           if (busquedaDisponible[index]
                                                   ['Favorito'] ==
                                               'Si') {
