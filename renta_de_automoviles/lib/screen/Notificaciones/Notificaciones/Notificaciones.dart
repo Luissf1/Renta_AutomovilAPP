@@ -70,7 +70,7 @@ class _NotificacionesState extends State<Notificaciones> {
                                       .textTheme
                                       .headline1!
                                       .copyWith(
-                                        fontSize: 14,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
@@ -79,7 +79,7 @@ class _NotificacionesState extends State<Notificaciones> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 14,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold)),
                                 Text(
                                     '\$${busquedaNotificacion[index]['precio']} MXN',
@@ -87,7 +87,7 @@ class _NotificacionesState extends State<Notificaciones> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 14,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold)),
                                 SizedBox(
                                   height: 40,

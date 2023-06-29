@@ -77,7 +77,7 @@ class _ReservadosState extends State<Reservados> {
                                       .textTheme
                                       .headline1!
                                       .copyWith(
-                                        fontSize: 14,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
@@ -88,7 +88,7 @@ class _ReservadosState extends State<Reservados> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 14,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold)),
                                 Text(
                                     //'${autos[index].precio} MXN',
@@ -97,7 +97,7 @@ class _ReservadosState extends State<Reservados> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 14,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold)),
                                 SizedBox(
                                   height: 10,

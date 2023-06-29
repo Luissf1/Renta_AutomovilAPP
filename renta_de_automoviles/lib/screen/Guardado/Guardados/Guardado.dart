@@ -75,7 +75,7 @@ class _GuardadosState extends State<Guardados> {
                                       .textTheme
                                       .headline1!
                                       .copyWith(
-                                        fontSize: 13,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
@@ -84,7 +84,7 @@ class _GuardadosState extends State<Guardados> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 13,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold)),
                                 Text(
                                     '\$${busquedaGuardados[index]['precio']} MXN',
@@ -92,7 +92,7 @@ class _GuardadosState extends State<Guardados> {
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(
-                                            fontSize: 13,
+                                            fontSize: 11,
                                             fontWeight: FontWeight.bold)),
                                 SizedBox(
                                   height: 10,

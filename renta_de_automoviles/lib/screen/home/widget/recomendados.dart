@@ -66,7 +66,8 @@ class _RecomendadosState extends State<Recomendados> {
     } else if (busqueda.isNotEmpty) {
       final resultado = await FirebaseFirestore.instance
           .collection('Auto')
-          .where('ubicacion', isEqualTo: busqueda)
+          .where('Estado', isEqualTo: 'Disponible')
+          .where('ubicacion', isEqualTo: busqueda.toUpperCase())
           .get();
 
       setState(() {
@@ -85,6 +86,9 @@ class _RecomendadosState extends State<Recomendados> {
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => Auto.fromJson(doc.data())).toList());
+
+  Color _colorguardar = Color.fromARGB(244, 83, 83, 83);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -223,7 +227,8 @@ class _RecomendadosState extends State<Recomendados> {
                   busqueda = value.toString(),
                   stream = FirebaseFirestore.instance
                       .collection('Auto')
-                      .where('ubicacion', isEqualTo: busqueda)
+                      .where('Estado', isEqualTo: 'Disponible')
+                      .where('ubicacion', isEqualTo: busqueda.toUpperCase())
                       .snapshots()
                       .map((snapshot) => snapshot.docs
                           .map((doc) => Auto.fromJson(doc.data()))
@@ -322,14 +327,14 @@ class _RecomendadosState extends State<Recomendados> {
                                           if (busquedaDisponible[index]
                                                   ['Favorito'] ==
                                               'Si') {
-                                            BoxDecoration(color: Colors.grey);
+                                            //_colorguardar =
+                                            //  Color.fromARGB(244, 83, 83, 83);
                                             docGuardado.update({
                                               'Favorito': 'No',
                                             });
                                           } else {
-                                            BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .accentColor);
+                                            //_colorguardar =
+                                            //  Color.fromARGB(138, 32, 3, 255);
                                             docGuardado.update({
                                               'Favorito': 'Si',
                                             });
@@ -337,7 +342,7 @@ class _RecomendadosState extends State<Recomendados> {
                                         },
                                         child: BotonGuardar(
                                             iconUrl: 'assets/icons/guardar.svg',
-                                            color: Colors.grey),
+                                            color: _colorguardar),
                                       )),
                                   Positioned(
                                       bottom: 0,

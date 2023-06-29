@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renta_de_automoviles/model/auto.dart';
-
 import '../../home/inicio.dart';
 
-CollectionReference collectionRef =
+/*CollectionReference collectionRef =
     FirebaseFirestore.instance.collection('Reservaciones');
-DocumentReference docRef = collectionRef.doc('lcgn6Yvixl8XvdFhauVX');
+DocumentReference docRef = collectionRef.doc('lcgn6Yvixl8XvdFhauVX');*/
 
 // Crea un Widget Form
 class MyCustomForm extends StatefulWidget {
@@ -241,14 +240,22 @@ class MyCustomFormState extends State<MyCustomForm> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       final autos = snapshot.data!;
-                      return Column(
-                        children: autos.map(Operaciones).toList(),
-                      );
+                      try {
+                        return Column(
+                          children: autos.map(Operaciones).toList(),
+                        );
+                      } catch (Ex) {
+                        return Center(
+                          //child: CircularProgressIndicator(),
+                          child: Text('Por favor seleccione una fecha'),
+                        );
+                      }
                     } else if (snapshot.hasError) {
                       return Text('Error ${snapshot.error}');
                     } else {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        //child: CircularProgressIndicator(),
+                        child: Text('Por favor seleccione una fecha'),
                       );
                     }
                   }),
